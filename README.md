@@ -4,9 +4,8 @@ A modern, SEO-optimized website for Al Emaar Al Areeq Trading Est., a leading bu
 
 ## 🚀 Quick Start
 
-1. **Read the SEO Guide**: Open `START_HERE.md` for complete SEO implementation details
-2. **Update Contact Info**: Replace placeholder phone/email in `index.html` and `src/components/SEOContent.tsx`
-3. **Build & Deploy**: Run `npm run build` and deploy the `dist` folder
+1. **Update Contact Info**: Replace placeholder phone/email in `index.html` and `src/components/SEOContent.tsx`
+2. **Build & Deploy**: Run `npm run build` and deploy the `dist` folder
 
 ## 🎯 SEO Features
 
@@ -49,8 +48,7 @@ A modern, SEO-optimized website for Al Emaar Al Areeq Trading Est., a leading bu
 │   ├── pages/               # Page components
 │   ├── assets/              # Images and static files
 │   └── data/                # Data files
-├── index.html               # Enhanced with SEO meta tags
-└── START_HERE.md            # Complete SEO guide
+└── index.html               # Enhanced with SEO meta tags
 ```
 
 ## 🚀 Development
@@ -114,8 +112,7 @@ This website is fully optimized for search engines with:
 
 ## 📚 Documentation
 
-- **START_HERE.md** - Complete SEO implementation guide
-- **README.md** - This file (project overview)
+- **README.md** - Project overview and development guide
 
 ## 🔧 Deployment
 
@@ -128,7 +125,3 @@ This website is fully optimized for search engines with:
 ## 📄 License
 
 © 2026 Al Emaar Al Areeq Trading Est. All rights reserved.
-
----
-
-**For complete SEO setup instructions, read `START_HERE.md`**
