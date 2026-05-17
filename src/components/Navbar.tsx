@@ -26,7 +26,28 @@ const Navbar = () => {
   const toggleLanguage = (lang: 'en' | 'ar') => {
     setCurrentLang(lang);
     
-    // Set standard Google Translate cookie
+    if (lang === 'en') {
+      // Clear standard Google Translate cookies to completely disable Google Translate
+      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${window.location.hostname}`;
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
+      
+      // Clear standard sessionStorage Google Translate key
+      try {
+        window.sessionStorage.removeItem('googtrans');
+      } catch (e) {}
+
+      // Lock direction to LTR and language to en
+      document.documentElement.dir = 'ltr';
+      document.documentElement.lang = 'en';
+
+      // Force a full page reload to completely clean up Google Translate elements, MutationObservers,
+      // and restore original English text nodes safely without React virtual DOM mismatches.
+      window.location.reload();
+      return;
+    }
+    
+    // Set standard Google Translate cookie for Arabic
     document.cookie = `googtrans=/en/${lang}; path=/`;
     document.cookie = `googtrans=/en/${lang}; path=/; domain=.${window.location.hostname}`;
     
