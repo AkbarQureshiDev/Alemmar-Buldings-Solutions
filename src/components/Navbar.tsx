@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronRight, ChevronDown, LayoutGrid } from 'lucide-react';
 import { IoLogoWhatsapp } from 'react-icons/io';
@@ -9,6 +9,49 @@ import { productCategories } from '../data/categories';
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isBrowseOpen, setIsBrowseOpen] = useState(false);
+  
+  const [currentLang, setCurrentLang] = useState<'en' | 'ar'>(() => {
+    const match = document.cookie.match(/googtrans=\/en\/([a-z]{2})/);
+    return (match && (match[1] === 'en' || match[1] === 'ar')) ? (match[1] as 'en' | 'ar') : 'en';
+  });
+
+  useEffect(() => {
+    // Synchronize HTML element direction and language attributes on mount
+    const match = document.cookie.match(/googtrans=\/en\/([a-z]{2})/);
+    const lang = (match && (match[1] === 'en' || match[1] === 'ar')) ? (match[1] as 'en' | 'ar') : 'en';
+    document.documentElement.dir = 'ltr'; // Lock direction to LTR to maintain visual layout positions
+    document.documentElement.lang = lang;
+  }, []);
+
+  const toggleLanguage = (lang: 'en' | 'ar') => {
+    setCurrentLang(lang);
+    
+    // Set standard Google Translate cookie
+    document.cookie = `googtrans=/en/${lang}; path=/`;
+    document.cookie = `googtrans=/en/${lang}; path=/; domain=.${window.location.hostname}`;
+    
+    // Lock direction to LTR to prevent layout flipping and maintain visual consistency
+    document.documentElement.dir = 'ltr';
+    document.documentElement.lang = lang;
+    
+    // Programmatically trigger Google Translate select widget change
+    const selectEl = document.querySelector('.goog-te-combo') as HTMLSelectElement;
+    if (selectEl) {
+      selectEl.value = lang;
+      selectEl.dispatchEvent(new Event('change'));
+    } else {
+      // Small delay fallback if widget script is still loading
+      setTimeout(() => {
+        const selectElRetry = document.querySelector('.goog-te-combo') as HTMLSelectElement;
+        if (selectElRetry) {
+          selectElRetry.value = lang;
+          selectElRetry.dispatchEvent(new Event('change'));
+        } else {
+          window.location.reload();
+        }
+      }, 500);
+    }
+  };
 
   const handleWhatsAppClick = () => {
     window.open('https://wa.me/966544837829', '_blank');
@@ -45,13 +88,40 @@ const Navbar = () => {
         </div>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 md:gap-3 flex-shrink-0">
+          {/* Language Switcher */}
+          <div className="flex items-center bg-slate-100 rounded-xl p-1 border border-slate-200 shadow-sm">
+            <button
+              onClick={() => toggleLanguage('en')}
+              className={`px-2.5 py-1.5 rounded-lg text-[10px] md:text-xs font-bold transition-all ${
+                currentLang === 'en' 
+                  ? 'bg-[#292A87] text-white shadow-sm' 
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/30'
+              }`}
+              title="English"
+            >
+              EN
+            </button>
+            <button
+              onClick={() => toggleLanguage('ar')}
+              className={`px-2.5 py-1.5 rounded-lg text-[10px] md:text-xs font-bold transition-all ${
+                currentLang === 'ar' 
+                  ? 'bg-[#292A87] text-white shadow-sm' 
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/30'
+              }`}
+              title="العربية"
+            >
+              العربية
+            </button>
+          </div>
+
+          {/* WhatsApp Button */}
           <button 
             onClick={handleWhatsAppClick}
-            className="hidden lg:flex items-center gap-2 bg-[#4E7E48] text-white px-6 py-3 rounded-xl font-bold shadow-md transition-all hover:bg-[#3d6339] active:scale-95"
+            className="flex items-center gap-1.5 bg-[#4E7E48] text-white px-3 py-2.5 md:px-5 md:py-3 rounded-xl font-bold shadow-md transition-all hover:bg-[#3d6339] active:scale-95 text-[11px] md:text-sm"
           >
-            <IoLogoWhatsapp size={22} />
-            <span>WhatsApp</span>
+            <IoLogoWhatsapp size={16} className="md:size-[20px]" />
+            <span className="hidden sm:inline">WhatsApp</span>
           </button>
 
           {/* Mobile Menu Button */}
@@ -59,7 +129,7 @@ const Navbar = () => {
             onClick={() => setIsMobileMenuOpen(true)}
             className="lg:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
           >
-            <Menu size={32} />
+            <Menu size={28} />
           </button>
         </div>
       </div>

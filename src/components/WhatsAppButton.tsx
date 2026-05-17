@@ -15,7 +15,6 @@ const WhatsAppButton = () => {
     >
       <IoLogoWhatsapp size={32} className="group-hover:animate-pulse" />
       
-      {/* Ripple effect */}
       <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20"></span>
     </button>
   );
