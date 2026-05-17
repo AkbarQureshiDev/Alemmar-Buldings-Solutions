@@ -72,7 +72,7 @@ const Footer = () => {
           <div className="flex flex-wrap justify-center gap-5 mb-12">
             {/* Address */}
             <motion.a 
-              href="https://maps.google.com/maps?q=JDBB3313,%203313%20محمد%20بن%20حمدون,%207918,%20AR%20Rabwah%20District,%20Jeddah%2023533,%20Saudi%20Arabia&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              href="https://maps.app.goo.gl/kqbQhv8xZaHGT27LA"
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 20 }}
@@ -85,7 +85,7 @@ const Footer = () => {
               <div className="bg-white p-3 rounded-full shadow-md">
                 <FaMapMarkerAlt className="text-[#292A87] text-lg" />
               </div>
-              <span className="text-sm font-semibold">King Fahad road - 23533 - Al rabwa dist. Jeddah - 3279 - 7913</span>
+              <span className="text-sm font-semibold">Malik Fahad Road (Sittin) - Al Rabwah Dist., Jeddah 23342</span>
             </motion.a>
 
             {/* Phone */}

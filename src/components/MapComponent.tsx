@@ -5,11 +5,11 @@ const MapComponent = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   // Updated to the Jeddah, Saudi Arabia location provided
-  const address = "JDBB3313, 3313 محمد بن حمدون, 7918, AR Rabwah District, Jeddah 23533, Saudi Arabia";
+  const address = "Al Emaar Al Areeq Trading Est., Ar Rabwah District, Malik Fahad Road Sittin, Jeddah 23342";
   const encodedAddress = encodeURIComponent(address);
   
-  // Fallback direct link for buttons
-  const directMapLink = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+  // Direct link provided by user
+  const directMapLink = "https://maps.app.goo.gl/kqbQhv8xZaHGT27LA";
 
   return (
     <div className="w-full max-w-7xl mx-auto p-4 my-10 font-poppins">
