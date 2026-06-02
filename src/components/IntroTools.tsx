@@ -7,8 +7,10 @@ import artlifeLogo from '../assets/ToolsBrands/ArtLife.png';
 import boschLogo from '../assets/ToolsBrands/bosch.png';
 import makitaLogo from '../assets/ToolsBrands/makita.svg';
 import totalLogo from '../assets/ToolsBrands/total.png';
+import { useLanguage } from "../context/LanguageContext";
 
 const IntroTools = () => {
+  const { t } = useLanguage();
   const fadeInLeft = {
     hidden: { opacity: 0, x: -40 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeInOut" as const } }
@@ -30,20 +32,14 @@ const IntroTools = () => {
         >
           <motion.div className="w-full text-center lg:text-left order-2 lg:order-1" variants={fadeInLeft}>
             <h2 className="text-3xl md:text-5xl font-poppins font-black text-[#6B5E18] text-[#002B36] leading-tight mb-6 lg:mb-8">
-              Tools And Hardware Equipments
+              {t.categories['Tools And Equipments']}
             </h2>
             <div className="text-gray-600 leading-relaxed text-base md:text-lg max-w-3xl mx-auto lg:mx-0">
               <p>
-                <strong className="text-[#002B36] font-bold">Al Emaar Alreeq Trading Est.</strong> offers
-                a wide range of tools and hardware equipment including power tools, hand tools,
-                drilling machines, grinders, compressors, and site equipment from
-                top international brands.
-                Whether you need tools for light maintenance or heavy construction work,
-                we have the right equipment for every job. We supply to contractors,
-                workshops, and project sites across Saudi Arabia with reliable after-sales support.
+                {t.introCommon.toolsDesc}
               </p>
               <h3 className="text-xl md:text-3xl font-poppins font-black text-[#6B5E18] mt-6">
-                Explore Our Brands
+                {t.introCommon.exploreBrands}
               </h3>
               <div className="grid grid-cols-3 lg:grid-cols-4 gap-4 mt-4 mb-10 md:mb-0 justify-items-center lg:justify-items-start">
                 <Link to="/emtop-products">

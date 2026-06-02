@@ -4,8 +4,10 @@ import ElectricalImg from '../assets/ElectricalImg.png';
 import alfanarLogo from '../assets/ToolsBrands/Alfanar.png';
 import bahraLogo from '../assets/ToolsBrands/Bahra.svg';
 import orientLogo from '../assets/ToolsBrands/Orient.png';
+import { useLanguage } from "../context/LanguageContext";
 
 const IntroElectricItems = () => {
+  const { t } = useLanguage();
   const fadeInLeft = {
     hidden: { opacity: 0, x: -40 },
     visible: { 
@@ -38,21 +40,15 @@ const IntroElectricItems = () => {
             variants={fadeInLeft}
           >
             <h2 className="text-3xl md:text-5xl font-poppins font-black text-[#6B5E18] text-[#002B36] leading-tight mb-6 lg:mb-8">
-              Electrical Items
+              {t.categories['Electrical Items']}
             </h2>
 
             <div className="text-gray-600 leading-relaxed text-base md:text-lg max-w-3xl mx-auto lg:mx-0">
               <p>
-                <strong className="text-[#002B36] font-bold">Al Emaar Alreeq Trading Est.</strong> supplies
-                a comprehensive range of electrical items including cables, wires, switches,
-                sockets, circuit breakers, distribution boards, and lighting solutions
-                from leading brands.
-                We serve contractors, consultants, and project owners across Saudi Arabia
-                with reliable electrical products that comply with Saudi standards. Our
-                full-service showroom and direct site delivery ensure your projects stay powered.
+                {t.introCommon.electricalDesc}
               </p>
               <h3 className="text-xl md:text-3xl font-poppins font-black text-[#6B5E18] mt-6">
-                Explore Our Brands
+                {t.introCommon.exploreBrands}
               </h3>
               <div className="grid grid-cols-3 lg:grid-cols-4 gap-4 mt-4 mb-10 md:mb-0 justify-items-center lg:justify-items-start">
                 <Link to="/alfanar-products">

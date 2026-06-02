@@ -5,6 +5,7 @@ import { productCategories } from '../data/categories';
 import { brandsIndex } from '../data/brandsIndex';
 import { searchBrandsByKeyword, brandCategoriesData } from '../data/brandCategories';
 import type { BrandCategory } from '../data/brandCategories';
+import { useLanguage } from '../context/LanguageContext';
 
 interface SearchBarProps {
   className?: string;
@@ -26,6 +27,7 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
   const [showResults, setShowResults] = useState(false);
   const navigate = useNavigate();
   const searchRef = useRef<HTMLDivElement>(null);
+  const { t, language } = useLanguage();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -172,7 +174,7 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
       <div className="flex items-center border-2 border-slate-100 bg-slate-50 rounded-full overflow-hidden focus-within:border-[#292A87] focus-within:bg-white transition-all">
         <input 
           type="text" 
-          placeholder="Search brands, products, categories..." 
+          placeholder={t.navbar.searchPlaceholder} 
           value={searchQuery}
           onChange={(e) => {
             setSearchQuery(e.target.value);
@@ -203,7 +205,7 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
           {!searchQuery && (
             <div className="p-3 bg-slate-50 border-b border-slate-200 sticky top-0">
               <p className="text-sm font-semibold text-slate-700">
-                Browse All ({searchResults.length} items)
+                {t.searchBar.browseAll} ({searchResults.length} {t.searchBar.itemsWord})
               </p>
               <p className="text-xs text-slate-500 mt-0.5">
                 Pages • Categories • Brands • Products
@@ -213,7 +215,7 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
           {searchQuery && (
             <div className="p-3 bg-slate-50 border-b border-slate-200 sticky top-0">
               <p className="text-sm font-semibold text-slate-700">
-                Search Results ({searchResults.length} found)
+                {t.searchBar.searchResults} ({searchResults.length} {t.searchBar.foundWord})
               </p>
             </div>
           )}
@@ -225,14 +227,14 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
                   <div className="mb-3">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-indigo-100 text-indigo-700">
-                        Category Match
+                        {t.searchBar.categoryMatch}
                       </span>
                       <h3 className="font-bold text-[#292A87] text-sm">
                         {result.brandCategory.name}
                       </h3>
                     </div>
                     <p className="text-xs text-slate-500 mb-3">
-                      {result.brandCategory.brands.length} brands available
+                      {result.brandCategory.brands.length} {t.searchBar.brandsAvailable}
                     </p>
                   </div>
                   
@@ -320,7 +322,7 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
 
       {showResults && searchQuery && searchResults.length === 0 && (
         <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-lg shadow-xl z-50 p-4 text-center text-slate-500">
-          No brands, products, or categories found for "{searchQuery}"
+          {t.searchBar.noResults} "{searchQuery}"
         </div>
       )}
     </div>

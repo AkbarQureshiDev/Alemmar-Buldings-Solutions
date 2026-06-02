@@ -8,8 +8,10 @@ import tremcoLogo from '../assets/ConstructionBrands/tremco.png';
 import sevenLogo from '../assets/PrimaryBrands/777.png';
 import jotunLogo from '../assets/PrimaryBrands/jotun.svg';
 import jeddahLogo from '../assets/PrimaryBrands/Jeddah.png';
+import { useLanguage } from "../context/LanguageContext";
 
 const IntroPaintItems = () => {
+  const { t } = useLanguage();
   const fadeInLeft = {
     hidden: { opacity: 0, x: -40 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeInOut" as const } }
@@ -41,20 +43,14 @@ const IntroPaintItems = () => {
         >
           <motion.div className="w-full text-center lg:text-left order-2 lg:order-1" variants={fadeInLeft}>
             <h2 className="text-3xl md:text-5xl font-poppins font-black text-[#6B5E18] leading-tight mb-6 lg:mb-8">
-              Paint Items
+              {t.categories['Paints']}
             </h2>
             <div className="text-gray-600 leading-relaxed text-base md:text-lg max-w-3xl mx-auto lg:mx-0">
               <p>
-                <strong className="text-[#002B36] font-bold">Al Emaar Alreeq Trading Est.</strong> offers
-                a wide selection of interior and exterior paints, primers, and coatings
-                from top brands including Jotun and Nadeem. Our range covers wall paints,
-                wood finishes, anti-corrosion coatings, and specialty paints.
-                We supply paint products for residential villas, commercial buildings,
-                and industrial facilities across Saudi Arabia. Our team can help you
-                choose the right product for every surface and environment.
+                {t.introCommon.paintDesc}
               </p>
               <h3 className="text-xl md:text-3xl font-poppins font-black text-[#6B5E18] mt-6">
-                Explore Our Brands
+                {t.introCommon.exploreBrands}
               </h3>
               <div className="grid grid-cols-3 lg:grid-cols-4 gap-4 mt-4 mb-10 md:mb-0 justify-items-center lg:justify-items-start">
                 {brands.map((brand) => (

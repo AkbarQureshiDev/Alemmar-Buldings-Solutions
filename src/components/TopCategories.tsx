@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 import weber from '../assets/PrimaryBrands/weber.png'
 import emtop from '../assets/ToolsBrands/emtop.png'
 import jotun from '../assets/PrimaryBrands/jotun.svg'
@@ -19,6 +20,7 @@ const categories = [
 
 const TopCategories: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const handleViewAll = (route: string) => {
     navigate(route);
@@ -81,12 +83,12 @@ const TopCategories: React.FC = () => {
           <div className="h-[1px] bg-gray-200 flex-grow max-w-[100px]"></div>
           {/* Heading Section */}
           <h2 className="text-2xl md:text-3xl font-black text-center tracking-tighter uppercase italic text-black/90">
-            Top
-            <span className="text-[#6B5E18] !ml-2">Brands</span>
+            {t.topBrands.top}
+            <span className="text-[#6B5E18] !ml-2">{t.topBrands.brands}</span>
           </h2>
           <div className="h-[1px] bg-gray-200 flex-grow max-w-[100px]"></div>
         </div>
-        <p className="text-gray-500 text-lg">Browse Our Best-Selling Brands</p>
+        <p className="text-gray-500 text-lg">{t.topBrands.subtitle}</p>
       </motion.div>
 
       {/* Categories Grid */}
@@ -131,7 +133,7 @@ const TopCategories: React.FC = () => {
                   whileTap={{ scale: 0.95 }}
                   transition={{ duration: 0.2 }}
                 >
-                  View All
+                  {t.topBrands.viewAll}
                 </motion.button>
               </div>
             </div>

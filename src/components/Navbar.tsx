@@ -1,86 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronRight, ChevronDown, LayoutGrid } from 'lucide-react';
 import { IoLogoWhatsapp } from 'react-icons/io';
 import logo from '../assets/logo.png';
 import SearchBar from './SearchBar';
 import { productCategories } from '../data/categories';
+import { useLanguage } from '../context/LanguageContext';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isBrowseOpen, setIsBrowseOpen] = useState(false);
   
-  const [currentLang, setCurrentLang] = useState<'en' | 'ar'>(() => {
-    const match = document.cookie.match(/googtrans=\/en\/([a-z]{2})/);
-    return (match && (match[1] === 'en' || match[1] === 'ar')) ? (match[1] as 'en' | 'ar') : 'en';
-  });
-
-  useEffect(() => {
-    // Synchronize HTML element direction and language attributes on mount
-    const match = document.cookie.match(/googtrans=\/en\/([a-z]{2})/);
-    const lang = (match && (match[1] === 'en' || match[1] === 'ar')) ? (match[1] as 'en' | 'ar') : 'en';
-    document.documentElement.dir = 'ltr'; // Lock direction to LTR to maintain visual layout positions
-    document.documentElement.lang = lang;
-  }, []);
-
-  const toggleLanguage = (lang: 'en' | 'ar') => {
-    setCurrentLang(lang);
-    
-    if (lang === 'en') {
-      // Clear standard Google Translate cookies to completely disable Google Translate
-      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${window.location.hostname}`;
-      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
-      
-      // Clear standard sessionStorage Google Translate key
-      try {
-        window.sessionStorage.removeItem('googtrans');
-      } catch (e) {}
-
-      // Lock direction to LTR and language to en
-      document.documentElement.dir = 'ltr';
-      document.documentElement.lang = 'en';
-
-      // Force a full page reload to completely clean up Google Translate elements, MutationObservers,
-      // and restore original English text nodes safely without React virtual DOM mismatches.
-      window.location.reload();
-      return;
-    }
-    
-    // Set standard Google Translate cookie for Arabic
-    document.cookie = `googtrans=/en/${lang}; path=/`;
-    document.cookie = `googtrans=/en/${lang}; path=/; domain=.${window.location.hostname}`;
-    
-    // Lock direction to LTR to prevent layout flipping and maintain visual consistency
-    document.documentElement.dir = 'ltr';
-    document.documentElement.lang = lang;
-    
-    // Programmatically trigger Google Translate select widget change
-    const selectEl = document.querySelector('.goog-te-combo') as HTMLSelectElement;
-    if (selectEl) {
-      selectEl.value = lang;
-      selectEl.dispatchEvent(new Event('change'));
-    } else {
-      // Small delay fallback if widget script is still loading
-      setTimeout(() => {
-        const selectElRetry = document.querySelector('.goog-te-combo') as HTMLSelectElement;
-        if (selectElRetry) {
-          selectElRetry.value = lang;
-          selectElRetry.dispatchEvent(new Event('change'));
-        } else {
-          window.location.reload();
-        }
-      }, 500);
-    }
-  };
+  const { language, setLanguage, t } = useLanguage();
 
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/966544837829', '_blank');
+    window.open('https://wa.me/9666544837829', '_blank');
   };
 
   const mainNavLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About Company', path: '/about' },
+    { name: t.navbar.home, path: '/' },
+    { name: t.navbar.about, path: '/about' },
   ];
 
   return (
@@ -95,10 +34,10 @@ const Navbar = () => {
           />
           <div className="flex flex-col justify-center">
             <span className="text-[11px] md:text-[13px] font-black text-slate-800 uppercase leading-tight">
-              Al Emaar Al Areeq
+              {t.brandName1}
             </span>
             <span className="text-[12px] md:text-[14px] font-bold text-[#292A87]">
-              Building Solutions
+              {t.brandName2}
             </span>
           </div>
         </Link>
@@ -113,9 +52,9 @@ const Navbar = () => {
           {/* Language Switcher */}
           <div className="flex items-center bg-slate-100 rounded-xl p-1 border border-slate-200 shadow-sm">
             <button
-              onClick={() => toggleLanguage('en')}
+              onClick={() => setLanguage('en')}
               className={`px-2.5 py-1.5 rounded-lg text-[10px] md:text-xs font-bold transition-all ${
-                currentLang === 'en' 
+                language === 'en' 
                   ? 'bg-[#292A87] text-white shadow-sm' 
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/30'
               }`}
@@ -124,9 +63,9 @@ const Navbar = () => {
               EN
             </button>
             <button
-              onClick={() => toggleLanguage('ar')}
+              onClick={() => setLanguage('ar')}
               className={`px-2.5 py-1.5 rounded-lg text-[10px] md:text-xs font-bold transition-all ${
-                currentLang === 'ar' 
+                language === 'ar' 
                   ? 'bg-[#292A87] text-white shadow-sm' 
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/30'
               }`}
@@ -142,7 +81,7 @@ const Navbar = () => {
             className="flex items-center gap-1.5 bg-[#4E7E48] text-white px-3 py-2.5 md:px-5 md:py-3 rounded-xl font-bold shadow-md transition-all hover:bg-[#3d6339] active:scale-95 text-[11px] md:text-sm"
           >
             <IoLogoWhatsapp size={16} className="md:size-[20px]" />
-            <span className="hidden sm:inline">WhatsApp</span>
+            <span className="hidden sm:inline">{t.navbar.whatsapp}</span>
           </button>
 
           {/* Mobile Menu Button */}
@@ -167,7 +106,7 @@ const Navbar = () => {
           >
             <button className="bg-[#6B5E18] text-white font-bold px-6 py-4 flex items-center gap-3 transition-colors min-w-[220px]">
               <LayoutGrid size={18} />
-              Browse Categories
+              {t.navbar.browseCategories}
               <ChevronDown size={14} className={`ml-auto transition-transform ${isBrowseOpen ? 'rotate-180' : ''}`} />
             </button>
 
@@ -177,18 +116,24 @@ const Navbar = () => {
               ${isBrowseOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}
             `}>
               <div className="py-2 max-h-[500px] overflow-y-auto">
-                {productCategories.map((cat) => (
-                  <Link 
-                    key={cat.id}
-                    to={cat.path} 
+              {
+                [
+                  { name: t.navbar.home, path: '/' },
+                  { name: t.navbar.about, path: '/about' },
+                  ...productCategories.filter(cat => ['Waterproofing Items','Construction Materials','Gypsum Boards','Paints','Electrical Items'].includes(cat.name))
+                ].map((item, idx) => (
+                  <Link
+                    key={item.id ?? idx}
+                    to={item.path}
                     className="flex items-center justify-between px-4 py-3 hover:bg-slate-50 cursor-pointer group border-b border-slate-100 last:border-0"
                   >
                     <span className="text-sm font-bold text-slate-700 group-hover:text-[#292A87]">
-                      {cat.name}
+                      {t.categories[item.name] || item.name}
                     </span>
                     <ChevronRight size={14} className="text-slate-300" />
                   </Link>
-                ))}
+                ))
+              }
               </div>
             </div>
           </div>
@@ -208,13 +153,13 @@ const Navbar = () => {
               
               <div className="h-6 w-[1px] bg-slate-300 mx-2 flex-shrink-0"></div>
 
-              {productCategories.map((cat) => (
-                <Link 
+              {productCategories.filter(cat => ['Waterproofing Items','Construction Materials','Gypsum Boards','Paints','Electrical Items'].includes(cat.name)).map((cat) => (
+                <Link
                   key={cat.id}
                   to={cat.path}
                   className="text-slate-600 font-semibold hover:text-[#292A87] cursor-pointer text-[13px] whitespace-nowrap transition-colors px-5 py-4 flex-shrink-0"
                 >
-                  {cat.name}
+                  {t.categories[cat.name] || cat.name}
                 </Link>
               ))}
             </div>
@@ -232,8 +177,8 @@ const Navbar = () => {
             <Link to="/" className="flex items-center gap-3" onClick={() => setIsMobileMenuOpen(false)}>
               <img src={logo} alt="Logo" className="h-10 w-auto" />
               <div className="flex flex-col">
-                <span className="text-[11px] md:text-[13px] font-black text-slate-800 uppercase">Al Emaar Al Areeq</span>
-                <span className="text-[12px] md:text-[14px] font-bold text-[#292A87]">Building Solutions</span>
+                <span className="text-[11px] md:text-[13px] font-black text-slate-800 uppercase">{t.brandName1}</span>
+                <span className="text-[12px] md:text-[14px] font-bold text-[#292A87]">{t.brandName2}</span>
               </div>
             </Link>
             <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 bg-slate-100 rounded-full">
@@ -260,7 +205,7 @@ const Navbar = () => {
               ))}
 
               <div className="pt-8 pb-4">
-                <span className="text-xs font-black text-[#6B5E18] uppercase tracking-widest">Browse Categories</span>
+                <span className="text-xs font-black text-[#6B5E18] uppercase tracking-widest">{t.navbar.browseCategories}</span>
               </div>
               
               <div className="grid grid-cols-1 gap-2">
@@ -271,7 +216,7 @@ const Navbar = () => {
                     className="flex items-center justify-between p-4 bg-slate-50 rounded-xl text-slate-700 font-semibold"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <span>{cat.name}</span>
+                    <span>{t.categories[cat.name] || cat.name}</span>
                     <ChevronRight size={18} className="text-slate-400" />
                   </Link>
                 ))}

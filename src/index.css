@@ -29,29 +29,4 @@ html {
   }
 }
 
-/* Google Translate styling overrides to keep the UI clean and premium */
-.skiptranslate, 
-iframe.goog-te-banner-frame,
-.goog-te-banner-frame,
-#goog-gt-tt,
-.goog-te-balloon-frame {
-  display: none !important;
-  visibility: hidden !important;
-}
 
-body {
-  top: 0px !important;
-}
-
-.goog-te-gadget {
-  display: none !important;
-}
-
-/* Apply Noto Sans Arabic font only when HTML lang is set to Arabic ('ar') */
-html[lang="ar"],
-html[lang="ar"] body,
-html[lang="ar"] * {
-  font-family: "Noto Sans Arabic", sans-serif !important;
-  font-optical-sizing: auto !important;
-  font-style: normal !important;
-}

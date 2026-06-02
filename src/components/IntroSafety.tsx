@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import SafetyImg from '../assets/SafetyImg.png';
+import { useLanguage } from "../context/LanguageContext";
 
 const IntroSafety = () => {
+  const { t } = useLanguage();
   const fadeInLeft = {
     hidden: { opacity: 0, x: -40 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeInOut" as const } }
@@ -23,17 +25,11 @@ const IntroSafety = () => {
         >
           <motion.div className="w-full text-center lg:text-left order-2 lg:order-1" variants={fadeInLeft}>
             <h2 className="text-3xl md:text-5xl font-poppins font-black text-[#6B5E18] text-[#002B36] leading-tight mb-6 lg:mb-8">
-              Safety Products
+              {t.categories['Safety Products']}
             </h2>
             <div className="text-gray-600 leading-relaxed text-base md:text-lg max-w-3xl mx-auto lg:mx-0">
               <p>
-                <strong className="text-[#002B36] font-bold">Al Emaar Alreeq Trading Est.</strong> supplies
-                a comprehensive range of safety products including helmets, gloves, safety
-                boots, harnesses, fire extinguishers, first aid kits, and PPE equipment
-                from certified manufacturers.
-                We help contractors and project managers maintain safe work environments
-                across Saudi Arabia. Our safety products comply with local and international
-                standards, ensuring full protection for your workforce on site.
+                {t.introCommon.safetyDesc}
               </p>
             </div>
           </motion.div>

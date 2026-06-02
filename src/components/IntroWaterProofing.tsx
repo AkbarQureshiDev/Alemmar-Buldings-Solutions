@@ -10,8 +10,10 @@ import dadcoLogo from '../assets/ConstructionBrands/dadco.png';
 import sabitLogo from '../assets/ConstructionBrands/sabit.svg';
 import bitumatLogo from '../assets/ConstructionBrands/bitumat.png';
 import pattexLogo from '../assets/ConstructionBrands/pattex.png';
+import { useLanguage } from '../context/LanguageContext';
 
 const IntroWaterProofing = () => {
+  const { t } = useLanguage();
   const fadeInLeft = {
     hidden: { opacity: 0, x: -40 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeInOut" as const } }
@@ -33,17 +35,14 @@ const IntroWaterProofing = () => {
         >
           <motion.div className="w-full text-center lg:text-left order-2 lg:order-1" variants={fadeInLeft}>
             <h2 className="text-3xl md:text-5xl font-poppins font-black text-[#6B5E18] text-[#002B36] leading-tight mb-6 lg:mb-8">
-              WaterProofing Items
+              {t.categories['Waterproofing Items']}
             </h2>
             <div className="text-gray-600 leading-relaxed text-base md:text-lg max-w-full mx-auto lg:mx-0">
               <p>
-                <strong className="text-[#002B36] font-bold">Al Emaar Alreeq Trading Est.</strong> supplies
-                professional waterproofing solutions for roofs, basements, bathrooms, swimming pools, and water tanks.
-                Our range includes membranes, coatings, sealants, and injection systems from leading manufacturers,
-                protecting structures from water damage across Saudi Arabia.
+                {t.introCommon.waterProofingDesc}
               </p>
               <h3 className="text-xl md:text-4xl font-poppins font-black text-[#6B5E18] mt-6">
-                Explore Our Brands
+                {t.introCommon.exploreBrands}
               </h3>
               <div className="grid grid-cols-3 lg:grid-cols-4 gap-4 mt-4 justify-items-center lg:justify-items-start mb-10 md:mb-0">
                 <Link to="/dcp-products">

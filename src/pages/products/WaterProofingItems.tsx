@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import IntroWaterProofing from '../../components/IntroWaterProofing';
+import { useLanguage } from '../../context/LanguageContext';
 
 // Original product images
 import EpoxyFlooring from '../../assets/WaterProofingItems/EpoxyFlooring.png';
@@ -59,8 +60,9 @@ const brandSections: BrandSection[] = [
 ];
 
 const WaterProofingItems: React.FC = () => {
+  const { t } = useLanguage();
   const handleWhatsAppClick = (productName: string) => {
-    const message = `I want to buy the ${productName} from WaterProofing & Chemicals`;
+    const message = t.productCommon.whatsappMsg.replace('{name}', productName).replace('{category}', 'WaterProofing & Chemicals');
     const whatsappNumber = '966544837829';
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -95,14 +97,13 @@ const WaterProofingItems: React.FC = () => {
         <div className="flex items-center justify-center gap-4 mb-2">
           <div className="h-[1px] bg-gray-200 flex-grow max-w-[100px]"></div>
           <h2 className="text-2xl md:text-3xl font-black text-center tracking-tighter uppercase italic text-black/90">
-            WaterProofing &
-            <span className="text-[#6B5E18] !ml-2">Chemicals Items</span>
+            {t.productPages.waterproofing.title}
+            <span className="text-[#6B5E18] !ml-2">{t.productPages.waterproofing.titleHighlight}</span>
           </h2>
           <div className="h-[1px] bg-gray-200 flex-grow max-w-[100px]"></div>
         </div>
         <p className="text-gray-500 text-base max-w-xl mx-auto leading-relaxed">
-          Advanced chemical solutions and waterproofing systems designed to protect
-          your structures from water damage and environmental wear.
+          {t.productPages.waterproofing.subtitle}
         </p>
       </div>
 
@@ -119,7 +120,7 @@ const WaterProofingItems: React.FC = () => {
             <div className="h-[2px] bg-gray-200 flex-grow max-w-[100px]"></div>
             <h3 className="text-xl md:text-2xl font-black tracking-tighter uppercase italic text-black/90 text-center">
               {section.brand}
-              <span className="text-[#6B5E18] ml-2">Products</span>
+              <span className="text-[#6B5E18] ml-2">{t.brands.productsWord}</span>
             </h3>
             <div className="h-[2px] bg-gray-200 flex-grow max-w-[100px]"></div>
           </div>
