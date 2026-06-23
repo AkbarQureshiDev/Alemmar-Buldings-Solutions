@@ -118,8 +118,8 @@ const Navbar = () => {
               <div className="py-2 max-h-[500px] overflow-y-auto">
               {
                 [
-                  { name: t.navbar.home, path: '/' },
-                  { name: t.navbar.about, path: '/about' },
+                  { name: t.navbar.home, path: '/', id: 'home' },
+                  { name: t.navbar.about, path: '/about', id: 'about' },
                   ...productCategories.filter(cat => ['Waterproofing Items','Construction Materials','Gypsum Boards','Paints','Electrical Items'].includes(cat.name))
                 ].map((item, idx) => (
                   <Link
