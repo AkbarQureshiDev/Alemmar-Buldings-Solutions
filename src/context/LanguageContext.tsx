@@ -123,7 +123,7 @@ const translations: Record<Language, TranslationType> = {
     },
     footer: {
       getInTouch: 'Get In Touch',
-      copyright: '© 2026 Al-Emaar Building Solutions • Design and Developed by StackFlow Development Company • All Rights Reserved',
+      copyright: '© 2026 Al-Emaar Building Solutions • Design and Developed by Innovex Technologies • All Rights Reserved',
       address: 'Malik Fahad Road (Sittin) - Al Rabwah Dist., Jeddah 23342',
       description: 'Al-Emaar Building Solutions is your trusted partner for premium construction materials and building supplies. We provide comprehensive solutions for waterproofing, paints, adhesives, electrical items, plumbing, safety products, and construction materials to meet all your building needs with excellence and reliability.',
     },
@@ -308,7 +308,7 @@ const translations: Record<Language, TranslationType> = {
     },
     footer: {
       getInTouch: 'اتصل بنا',
-      copyright: '© 2026 الإعمار لحلول البناء • تصميم وتطوير شركة ستاك فلو للتطوير • جميع الحقوق محفوظة',
+      copyright: '© 2026 الإعمار لحلول البناء • تصميم وتطوير شركة إينوفكس تكنولوجيز • جميع الحقوق محفوظة',
       address: 'طريق الملك فهد (الستين) - حي الربوة، جدة 23342',
       description: 'الإعمار لحلول البناء هي شريكك الموثوق لمواد البناء والتوريدات الفاخرة. نحن نقدم حلولاً شاملة للعزل المائي، الدهانات، المواد اللاصقة، الأدوات الكهربائية، السباكة، منتجات السلامة، ومواد البناء لتلبية جميع احتياجات البناء والتشييد الخاصة بك بتميز وموثوقية.',
     },
