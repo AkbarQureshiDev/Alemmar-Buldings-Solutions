@@ -117,11 +117,7 @@ const Navbar = () => {
             `}>
               <div className="py-2 max-h-[500px] overflow-y-auto">
               {
-                [
-                  { name: t.navbar.home, path: '/', id: 'home' },
-                  { name: t.navbar.about, path: '/about', id: 'about' },
-                  ...productCategories.filter(cat => ['Waterproofing Items','Construction Materials','Gypsum Boards','Paints','Electrical Items'].includes(cat.name))
-                ].map((item, idx) => (
+                productCategories.map((item, idx) => (
                   <Link
                     key={item.id ?? idx}
                     to={item.path}
@@ -141,25 +137,20 @@ const Navbar = () => {
           {/* Scrollable Navigation Area */}
           <nav className="flex items-center flex-1 overflow-x-auto no-scrollbar scroll-smooth">
             <div className="flex items-center">
-              {mainNavLinks.map((link, index) => (
+              {[
+                { name: t.navbar.home, path: '/' },
+                { name: t.navbar.about, path: '/about' },
+                ...productCategories.filter(cat => ['Waterproofing Items','Construction Materials','Gypsum Boards','Paints','Electrical Items'].includes(cat.name)).map(cat => ({
+                  name: t.categories[cat.name] || cat.name,
+                  path: cat.path
+                }))
+              ].map((link, index) => (
                 <Link 
                   key={index}
                   to={link.path}
                   className="text-slate-700 font-bold hover:text-[#292A87] cursor-pointer text-sm whitespace-nowrap transition-colors px-5 py-4 flex-shrink-0"
                 >
                   {link.name}
-                </Link>
-              ))}
-              
-              <div className="h-6 w-[1px] bg-slate-300 mx-2 flex-shrink-0"></div>
-
-              {productCategories.filter(cat => ['Waterproofing Items','Construction Materials','Gypsum Boards','Paints','Electrical Items'].includes(cat.name)).map((cat) => (
-                <Link
-                  key={cat.id}
-                  to={cat.path}
-                  className="text-slate-600 font-semibold hover:text-[#292A87] cursor-pointer text-[13px] whitespace-nowrap transition-colors px-5 py-4 flex-shrink-0"
-                >
-                  {t.categories[cat.name] || cat.name}
                 </Link>
               ))}
             </div>
