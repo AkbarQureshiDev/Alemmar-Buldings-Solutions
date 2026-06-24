@@ -59,7 +59,8 @@ export const brandCategories = [
       { name: 'Henkel', logo: '/brands/henkel.png' },
       { name: 'Bitumat', logo: '/brands/bitumat.png' },
       { name: 'Ezomax', logo: '/brands/ezomax.png' },
-      { name: 'Weber', logo: '/brands/weber.png' }
+      { name: 'Weber', logo: '/brands/weber.png' },
+      { name: 'Laticrete', logo: '/brands/leticrete.svg' }
     ]
   },
   {

@@ -27,6 +27,7 @@ import pattex from '../assets/ConstructionBrands/pattex.png';
 import saaf from '../assets/ConstructionBrands/saaf.png';
 import sabit from '../assets/ConstructionBrands/sabit.svg';
 import tremco from '../assets/ConstructionBrands/tremco.png';
+import leticrete from '../assets/ConstructionBrands/leticrete.svg';
 
 // Tools Brands
 import artlife from '../assets/ToolsBrands/ArtLife.png';
@@ -165,6 +166,13 @@ export const brandCategoriesData: BrandCategory[] = [
         logo: pattex,
         path: '/pattex-products',
         description: 'Adhesives and bonding solutions'
+      },
+      {
+        id: 'laticrete',
+        name: 'Laticrete',
+        logo: leticrete,
+        path: '/laticrete-products',
+        description: 'Tile adhesives, grouts, sealants, and waterproofing systems'
       }
     ]
   },

@@ -34,6 +34,7 @@ import SaudiCeramicsProducts from './saudiCeramics';
 import AlfanarProducts from './Alfanar';
 import BahraProducts from './Bahra';
 import OrientProducts from './Orient';
+import LaticreteProducts from './Laticrete';
 
 export interface BrandInfo {
   id: string;
@@ -257,5 +258,11 @@ export const brandsIndex: BrandInfo[] = [
     name: 'Orient',
     path: '/orient-products',
     products: OrientProducts
+  },
+  {
+    id: 'laticrete',
+    name: 'Laticrete',
+    path: '/laticrete-products',
+    products: LaticreteProducts
   }
 ];
