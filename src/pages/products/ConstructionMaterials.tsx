@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-
 import IntroConstruction from '../../components/IntroConstruction';
+import { useLanguage } from '../../context/LanguageContext';
 
 // Existing Imports
 import CementBoard from '../../assets/ConstructionMaterials/CementBoard.png';
@@ -78,8 +78,9 @@ const products: Product[] = [
 ];
 
 const ConstructionMaterials: React.FC = () => {
+  const { t } = useLanguage();
   const handleWhatsAppClick = (productName: string) => {
-    const message = `I want to buy the ${productName} from Construction Materials`;
+    const message = t.productCommon.whatsappMsg.replace('{name}', productName).replace('{category}', 'Construction Materials');
     const whatsappNumber = '966544837829';
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -93,14 +94,13 @@ const ConstructionMaterials: React.FC = () => {
         <div className="flex items-center justify-center gap-4 mb-2">
           <div className="h-[1px] bg-gray-200 flex-grow max-w-[100px]"></div>
           <h2 className="text-2xl md:text-3xl font-black text-center tracking-tighter uppercase italic text-black/90">
-            Constructions
-            <span className="text-[#6B5E18] !ml-2">Materials</span>
+            {t.productPages.construction.title}
+            <span className="text-[#6B5E18] !ml-2">{t.productPages.construction.titleHighlight}</span>
           </h2>
           <div className="h-[1px] bg-gray-200 flex-grow max-w-[100px]"></div>
         </div>
         <p className="text-gray-500 text-base max-w-xl mx-auto leading-relaxed">
-          Your trusted partner for premium construction materials. We provide high-quality 
-          solutions engineered for durability and structural excellence.
+          {t.productPages.construction.subtitle}
         </p>
       </div>
 

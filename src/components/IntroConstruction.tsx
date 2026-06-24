@@ -5,8 +5,10 @@ import saudiCeramicsLogo from '../assets/PrimaryBrands/saudiCeramics.png';
 import weberLogo from '../assets/PrimaryBrands/weber.png';
 import savetoLogo from '../assets/PrimaryBrands/saveto.svg';
 import sikaLogo from '../assets/PrimaryBrands/sika.png';
+import { useLanguage } from "../context/LanguageContext";
 
 const IntroConstruction = () => {
+  const { t } = useLanguage();
   const fadeInLeft = {
     hidden: { opacity: 0, x: -40 },
     visible: { 
@@ -41,24 +43,18 @@ const IntroConstruction = () => {
             variants={fadeInLeft}
           >
             <h2 className="text-3xl md:text-5xl font-poppins font-black text-[#6B5E18] text-[#002B36] leading-tight mb-6 lg:mb-8">
-              Construction Materials
+              {t.categories['Construction Materials']}
             </h2>
 
             <div className="text-gray-600 leading-relaxed text-base md:text-lg max-w-3xl mx-auto lg:mx-0">
               <p>
-                <strong className="text-[#002B36] font-bold">Al Emaar Alreeq Trading Est.</strong> is a trusted
-                supplier of premium construction materials across Saudi Arabia. We stock
-                cement, steel, blocks, sand, aggregates, and all structural materials
-                needed for residential and commercial projects.
-                With over seven years of experience, we deliver quality materials directly
-                to project sites. Our team ensures timely supply and competitive pricing
-                to keep your construction on schedule and within budget.
+                {t.introCommon.constructionDesc}
               </p>
               <h3 className="text-xl md:text-3xl font-poppins font-black text-[#6B5E18] mt-6">
-                Explore Our Brands
+                {t.introCommon.exploreBrands}
               </h3>
               <div className="grid grid-cols-3 lg:grid-cols-4 gap-4 mt-4 justify-items-center lg:justify-items-start">
-                <Link to="/saudi-ceramics-products">
+                <Link to="/saudiCeramics-products">
                   <img src={saudiCeramicsLogo} alt="Saudi Ceramics" className="h-23 w-57 p-2 object-contain rounded-xl border border-gray-100 shadow-md hover:scale-105 transition-transform bg-gray-300" />
                 </Link>
                 <Link to="/weber-products">

@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Search, X } from 'lucide-react';
 import { productCategories } from '../data/categories';
 import { brandsIndex } from '../data/brandsIndex';
-import { searchBrandsByKeyword, brandCategoriesData } from '../data/brandCategories';
+import { searchBrandsByKeyword, brandCategoriesData, getAllBrands } from '../data/brandCategories';
 import type { BrandCategory } from '../data/brandCategories';
+import { useLanguage } from '../context/LanguageContext';
 
 interface SearchBarProps {
   className?: string;
@@ -26,6 +27,7 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
   const [showResults, setShowResults] = useState(false);
   const navigate = useNavigate();
   const searchRef = useRef<HTMLDivElement>(null);
+  const { t, language } = useLanguage();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -42,6 +44,7 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
   // Get all results when search is empty (for "See All" view)
   const getAllResults = (): SearchResult[] => {
     const results: SearchResult[] = [];
+    const allBrandsFlat = getAllBrands();
 
     // Add main pages
     results.push(
@@ -70,10 +73,13 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
 
     // Add all brands
     brandsIndex.forEach(brand => {
+      const brandDetails = allBrandsFlat.find(b => b.id === brand.id || b.name.toLowerCase() === brand.name.toLowerCase());
       results.push({
         type: 'brand',
         name: brand.name,
-        path: brand.path
+        path: brand.path,
+        logo: brandDetails?.logo,
+        description: brandDetails?.description
       });
 
       // Add all products from each brand
@@ -83,7 +89,8 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
           name: product.name,
           path: brand.path,
           brandName: brand.name,
-          description: product.description
+          description: product.description,
+          logo: product.productImg
         });
       });
     });
@@ -95,6 +102,7 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
     ? (() => {
         const query = searchQuery.toLowerCase();
         const results: SearchResult[] = [];
+        const allBrandsFlat = getAllBrands();
 
         // Search in brand categories by keywords (PRIORITY)
         const matchingCategories = searchBrandsByKeyword(query);
@@ -138,26 +146,36 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
 
         // Search in brands
         brandsIndex.forEach(brand => {
-          const brandMatches = brand.name.toLowerCase().includes(query);
+          // Match brand name or check for 'laticrete'/'leticrete' search variations
+          const isLaticreteQuery = brand.id === 'laticrete' && (query.includes('leticrete') || query.includes('laticrete'));
+          const brandMatches = brand.name.toLowerCase().includes(query) || 
+                               query.includes(brand.name.toLowerCase()) ||
+                               isLaticreteQuery;
           
           if (brandMatches) {
+            const brandDetails = allBrandsFlat.find(b => b.id === brand.id || b.name.toLowerCase() === brand.name.toLowerCase());
             results.push({
               type: 'brand',
               name: brand.name,
-              path: brand.path
+              path: brand.path,
+              logo: brandDetails?.logo,
+              description: brandDetails?.description
             });
           }
 
           // Search in brand products
           brand.products.forEach(product => {
-            if (product.name.toLowerCase().includes(query) || 
-                product.description.toLowerCase().includes(query)) {
+            const matchesQuery = product.name.toLowerCase().includes(query) || 
+                                 product.description.toLowerCase().includes(query) ||
+                                 brandMatches; // Show all products of this brand if brand name matches
+            if (matchesQuery) {
               results.push({
                 type: 'product',
                 name: product.name,
                 path: brand.path,
                 brandName: brand.name,
-                description: product.description
+                description: product.description,
+                logo: product.productImg
               });
             }
           });
@@ -172,7 +190,7 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
       <div className="flex items-center border-2 border-slate-100 bg-slate-50 rounded-full overflow-hidden focus-within:border-[#292A87] focus-within:bg-white transition-all">
         <input 
           type="text" 
-          placeholder="Search brands, products, categories..." 
+          placeholder={t.navbar.searchPlaceholder} 
           value={searchQuery}
           onChange={(e) => {
             setSearchQuery(e.target.value);
@@ -203,7 +221,7 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
           {!searchQuery && (
             <div className="p-3 bg-slate-50 border-b border-slate-200 sticky top-0">
               <p className="text-sm font-semibold text-slate-700">
-                Browse All ({searchResults.length} items)
+                {t.searchBar.browseAll} ({searchResults.length} {t.searchBar.itemsWord})
               </p>
               <p className="text-xs text-slate-500 mt-0.5">
                 Pages • Categories • Brands • Products
@@ -213,7 +231,7 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
           {searchQuery && (
             <div className="p-3 bg-slate-50 border-b border-slate-200 sticky top-0">
               <p className="text-sm font-semibold text-slate-700">
-                Search Results ({searchResults.length} found)
+                {t.searchBar.searchResults} ({searchResults.length} {t.searchBar.foundWord})
               </p>
             </div>
           )}
@@ -225,14 +243,14 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
                   <div className="mb-3">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-indigo-100 text-indigo-700">
-                        Category Match
+                        {t.searchBar.categoryMatch}
                       </span>
                       <h3 className="font-bold text-[#292A87] text-sm">
                         {result.brandCategory.name}
                       </h3>
                     </div>
                     <p className="text-xs text-slate-500 mb-3">
-                      {result.brandCategory.brands.length} brands available
+                      {result.brandCategory.brands.length} {t.searchBar.brandsAvailable}
                     </p>
                   </div>
                   
@@ -279,33 +297,44 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
                     setSearchQuery('');
                     onResultClick?.();
                   }}
-                  className="block w-full text-left"
+                  className="block w-full text-left font-[Poppins]"
                 >
-                  <div className="flex items-start gap-2">
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium mt-1 ${
-                      result.type === 'category' 
-                        ? 'bg-blue-100 text-blue-700' 
-                        : result.type === 'brand'
-                        ? 'bg-purple-100 text-purple-700'
-                        : result.type === 'product'
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-orange-100 text-orange-700'
-                    }`}>
-                      {result.type === 'category' ? 'Category' : 
-                       result.type === 'brand' ? 'Brand' : 
-                       result.type === 'product' ? 'Product' : 'Page'}
-                    </span>
+                  <div className="flex items-start gap-3">
+                    {result.logo && (
+                      <div className={`w-12 h-12 flex-shrink-0 rounded-lg flex items-center justify-center p-1.5 border border-slate-100 ${result.type === 'brand' ? 'bg-slate-800' : 'bg-slate-50'}`}>
+                        <img 
+                          src={result.logo} 
+                          alt={result.name} 
+                          className="max-w-full max-h-full object-contain"
+                        />
+                      </div>
+                    )}
                     <div className="flex-1">
-                      <div className="font-semibold text-[#292A87] hover:underline">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
+                          result.type === 'category' 
+                            ? 'bg-blue-100 text-blue-700' 
+                            : result.type === 'brand'
+                            ? 'bg-purple-100 text-purple-700'
+                            : result.type === 'product'
+                            ? 'bg-green-100 text-green-700'
+                            : 'bg-orange-100 text-orange-700'
+                        }`}>
+                          {result.type === 'category' ? 'Category' : 
+                           result.type === 'brand' ? 'Brand' : 
+                           result.type === 'product' ? 'Product' : 'Page'}
+                        </span>
+                        {result.brandName && (
+                          <span className="text-[10px] text-slate-400 font-medium">
+                            {result.brandName}
+                          </span>
+                        )}
+                      </div>
+                      <div className="font-bold text-[#292A87] hover:underline text-sm leading-tight">
                         {result.name}
                       </div>
-                      {result.brandName && (
-                        <div className="text-xs text-slate-500 mt-0.5">
-                          Brand: {result.brandName}
-                        </div>
-                      )}
                       {result.description && (
-                        <div className="text-xs text-slate-600 mt-1 line-clamp-2">
+                        <div className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
                           {result.description}
                         </div>
                       )}
@@ -320,7 +349,7 @@ const SearchBar = ({ className = '', onResultClick }: SearchBarProps) => {
 
       {showResults && searchQuery && searchResults.length === 0 && (
         <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-lg shadow-xl z-50 p-4 text-center text-slate-500">
-          No brands, products, or categories found for "{searchQuery}"
+          {t.searchBar.noResults} "{searchQuery}"
         </div>
       )}
     </div>

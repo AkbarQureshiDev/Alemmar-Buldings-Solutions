@@ -1,30 +1,33 @@
 import { motion } from 'framer-motion';
 import { Laptop, ClipboardCheck, Truck, Headphones } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Values = () => {
+  const { t } = useLanguage();
+
   const steps = [
     {
       icon: <Laptop className="w-6 h-6 text-white" />,
-      title: "Careful Selection",
-      description: "We meticulously choose our materials from reputable suppliers.",
+      title: t.values.steps[0].title,
+      description: t.values.steps[0].description,
       bgColor: "bg-[#6B5E18]", 
     },
     {
       icon: <ClipboardCheck className="w-6 h-6 text-white" />,
-      title: "Thorough Inspection",
-      description: "Our experts rigorously assess every product for quality and compliance.",
+      title: t.values.steps[1].title,
+      description: t.values.steps[1].description,
       bgColor: "bg-[#233F90]", 
     },
     {
       icon: <Truck className="w-6 h-6 text-white" />,
-      title: "Efficient Delivery",
-      description: "We prioritize timely and secure delivery for your convenience.",
+      title: t.values.steps[2].title,
+      description: t.values.steps[2].description,
       bgColor: "bg-[#6B5E18]",
     },
     {
       icon: <Headphones className="w-6 h-6 text-white" />,
-      title: "Dedicated Support",
-      description: "Our team is committed to providing personalized assistance and ongoing support.",
+      title: t.values.steps[3].title,
+      description: t.values.steps[3].description,
       bgColor: "bg-[#233F90]",
     },
   ];
@@ -104,7 +107,7 @@ const Values = () => {
             viewport={{ once: true }}
           >
             <span className="bg-[#6B5E18] text-white text-[10px] font-bold px-5 py-2 rounded-md border-y border-[#C42021] uppercase tracking-[0.2em]">
-              How We Work
+              {t.values.howWeWork}
             </span>
           </motion.div>
           
@@ -116,8 +119,8 @@ const Values = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              Our 4 Steps To <span className="relative text-[#233F90]">
-                Quality Assurance
+              {t.values.titleStart}<span className="relative text-[#233F90]">
+                {t.values.titleHighlight}
                 <motion.span 
                   className="absolute bottom-1 left-0 w-full h-[6px] bg-[#233F90] -z-10"
                   initial={{ scaleX: 0 }}

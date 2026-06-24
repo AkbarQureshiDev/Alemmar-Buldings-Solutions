@@ -2,8 +2,10 @@ import { motion } from 'framer-motion'
 import PrimaryBrands from './PrimaryBrands'
 import ConstructionBrands from './ConstructionBrands'
 import ToolsBrands from './ToolsBrands'
+import { useLanguage } from '../context/LanguageContext'
 
 const Brands = () => {
+  const { t } = useLanguage();
   // Container animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -45,13 +47,13 @@ const Brands = () => {
       <div className="flex items-center justify-center gap-4 mb-2">
           <div className="h-[1px] bg-gray-200 flex-grow max-w-[100px]"></div>
              {/* Heading Section */}
-        <h2 className="text-2xl md:text-3xl font-black text-center tracking-tighter uppercase italic text-gray-100">
-            Shop by 
-          <span className="text-[#6B5E18] !ml-2">Brands</span>
-        </h2>
+          <h2 className="text-2xl md:text-3xl font-black text-center tracking-tighter uppercase italic text-gray-100">
+              {t.brands.shopBy}
+            <span className="text-[#6B5E18] !ml-2">{t.brands.brandsWord}</span>
+          </h2>
           <div className="h-[1px] bg-gray-200 flex-grow max-w-[100px]"></div>
         </div>
-        <p className="text-gray-100 text-lg">Click the Logo and see more in detail.</p>
+        <p className="text-gray-100 text-lg">{t.brands.subtitle}</p>
       </div>
 
       <motion.div variants={sectionVariants}>

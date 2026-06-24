@@ -4,32 +4,35 @@ import { useRef } from "react";
 import { motion , useInView } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { FaDollarSign, FaTrophy, FaHammer, FaTruck, FaHandshake } from "react-icons/fa";
+import { useLanguage } from "../context/LanguageContext";
 
 const SEOContent = () => {
+  const { t } = useLanguage();
+
   const values = [
     {
-      title: "Competitive Wholesale Pricing",
-      description: "Best prices for bulk orders and contractors",
+      title: t.seoContent.items[0].title,
+      description: t.seoContent.items[0].description,
       icon: <FaDollarSign className="text-3xl text-[#6B5E18] mb-3 mx-auto" />
     },
     {
-      title: "Trusted International Brands",
-      description: "Authorized dealers for premium brands",
+      title: t.seoContent.items[1].title,
+      description: t.seoContent.items[1].description,
       icon: <FaTrophy className="text-3xl text-[#6B5E18] mb-3 mx-auto" />
     },
     {
-      title: "Bulk Supply for Contractors",
-      description: "Large inventory for construction projects",
+      title: t.seoContent.items[2].title,
+      description: t.seoContent.items[2].description,
       icon: <FaHammer className="text-3xl text-[#6B5E18] mb-3 mx-auto" />
     },
     {
-      title: "Fast Delivery in Jeddah",
-      description: "Quick delivery across Jeddah and surrounding areas",
+      title: t.seoContent.items[3].title,
+      description: t.seoContent.items[3].description,
       icon: <FaTruck className="text-3xl text-[#6B5E18] mb-3 mx-auto" />
     },
     {
-      title: "Reliable Customer Support",
-      description: "Expert advice and technical support",
+      title: t.seoContent.items[4].title,
+      description: t.seoContent.items[4].description,
       icon: <FaHandshake className="text-3xl text-[#6B5E18] mb-3 mx-auto" />
     },
   ];
@@ -55,8 +58,8 @@ const SEOContent = () => {
         <div className="h-[1px] bg-gray-200 flex-grow max-w-[100px]"></div>
         {/* Heading Section */}
         <h2 className="text-2xl md:text-3xl font-black text-center tracking-tighter uppercase italic text-black/90">
-          Why Choose Al Emaar
-          <span className="text-[#6B5E18] !ml-2">Al Areeq Trading Est.?</span>
+          {t.seoContent.titleStart}
+          <span className="text-[#6B5E18] !ml-2">{t.seoContent.titleHighlight}</span>
         </h2>
         <div className="h-[1px] bg-gray-200 flex-grow max-w-[100px]"></div>
       </div>

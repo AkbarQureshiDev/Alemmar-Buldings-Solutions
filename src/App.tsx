@@ -53,6 +53,7 @@ import SaudiCeramics from './pages/Brands/SaudiCeramics'
 import Alfanar from './pages/Brands/Alfanar'
 import Bahra from './pages/Brands/Bahra'
 import Orient from './pages/Brands/Orient'
+import Laticrete from './pages/Brands/Laticrete'
 
 
 const App = () => {
@@ -111,6 +112,7 @@ const App = () => {
         <Route path="/alfanar-products" element={<Alfanar />} />
         <Route path="/bahra-products" element={<Bahra />} />
         <Route path="/orient-products" element={<Orient />} />
+        <Route path="/laticrete-products" element={<Laticrete />} />
       </Routes>
       <Footer />
       <WhatsAppButton />

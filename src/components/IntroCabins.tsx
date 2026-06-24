@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import portaImg from '../assets/portaImg.png';
+import { useLanguage } from "../context/LanguageContext";
 
 const IntroCabins = () => {
+  const { t } = useLanguage();
   const fadeInLeft = {
     hidden: { opacity: 0, x: -40 },
     visible: { 
@@ -34,18 +36,12 @@ const IntroCabins = () => {
             variants={fadeInLeft}
           >
             <h2 className="text-3xl md:text-5xl font-poppins font-black text-[#6B5E18] text-[#002B36] leading-tight mb-6 lg:mb-8">
-              Porta Cabins
+              {t.categories['Porta Cabins']}
             </h2>
 
             <div className="text-gray-600 leading-relaxed text-base md:text-lg max-w-3xl mx-auto lg:mx-0">
               <p>
-                <strong className="text-[#002B36] font-bold">Al Emaar Alreeq Trading Est.</strong> provides
-                high-quality porta cabins for construction sites, labor accommodations,
-                site offices, and temporary storage. Our cabins are durable, weather-resistant,
-                and available in various sizes to suit your project needs.
-                We offer customizable porta cabin solutions with fast delivery and installation
-                across Saudi Arabia. Whether for short-term or long-term use, our cabins
-                are built to withstand harsh site conditions.
+                {t.introCommon.cabinsDesc}
               </p>
             </div>
           </motion.div>

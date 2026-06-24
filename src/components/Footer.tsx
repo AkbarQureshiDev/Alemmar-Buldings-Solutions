@@ -3,8 +3,10 @@ import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaInstagram, FaLin
 import { FaTiktok, FaThreads } from 'react-icons/fa6';
 import { IoLogoWhatsapp } from 'react-icons/io';
 import logo from '../assets/logo.png';
+import { useLanguage } from '../context/LanguageContext';
 
 const Footer = () => {
+  const { t, language } = useLanguage();
   return (
     <footer className="bg-gradient-to-br from-[#1e3a8a] via-[#1e40af] to-[#233F90] text-white py-16 px-4 font-poppins">
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
@@ -24,9 +26,9 @@ const Footer = () => {
             whileHover={{ scale: 1.1, rotate: 5 }}
             transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] as const }}
           />
-          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">Al-Emaar</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">{t.brandName1}</h2>
           <p className="text-base md:text-lg font-semibold mt-2 leading-tight">
-            Al Emaar Al Areeq Trading Est.
+            {t.brandName1} {language === 'en' ? 'Trading Est.' : 'للتجارة'}
           </p>
           <motion.p 
             className="text-yellow-400 text-xl md:text-2xl font-black mt-1 tracking-wide italic"
@@ -35,7 +37,7 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] as const }}
           >
-            Building Solutions Jeddah
+            {t.brandName2} Jeddah
           </motion.p>
         </motion.div>
 
@@ -47,10 +49,7 @@ const Footer = () => {
           transition={{ duration: 0.6, delay: 0.3, ease: [0.4, 0, 0.2, 1] as const }}
           className="max-w-4xl text-base md:text-lg text-gray-100 mb-12 leading-relaxed font-medium"
         >
-          Al-Emaar Building Solutions is your trusted partner for premium construction materials and 
-          building supplies. We provide comprehensive solutions for waterproofing, paints, adhesives, 
-          electrical items, plumbing, safety products, and construction materials to meet all your 
-          building needs with excellence and reliability.
+          {t.footer.description}
         </motion.p>
 
         {/* Contact Section */}
@@ -66,7 +65,7 @@ const Footer = () => {
             }}
             className="text-2xl md:text-3xl font-black text-yellow-400 mb-8 tracking-wide italic uppercase"
           >
-            Get In Touch
+            {t.footer.getInTouch}
           </motion.h3>
           
           <div className="flex flex-wrap justify-center gap-5 mb-12">
@@ -85,7 +84,7 @@ const Footer = () => {
               <div className="bg-white p-3 rounded-full shadow-md">
                 <FaMapMarkerAlt className="text-[#292A87] text-lg" />
               </div>
-              <span className="text-sm font-semibold">Malik Fahad Road (Sittin) - Al Rabwah Dist., Jeddah 23342</span>
+              <span className="text-sm font-semibold">{t.footer.address}</span>
             </motion.a>
 
             {/* Phone */}
@@ -229,7 +228,7 @@ const Footer = () => {
           className="w-full border-t border-white/30 pt-8"
         >
           <p className="text-sm md:text-base text-gray-200 font-medium">
-            © 2026 Al-Emaar Building Solutions • Design and Developed by StackFlow Development Company • All Rights Reserved
+            {t.footer.copyright}
           </p>
         </motion.div>
       </div>

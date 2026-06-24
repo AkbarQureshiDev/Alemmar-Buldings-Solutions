@@ -4,8 +4,10 @@ import PlumbingImg from '../assets/PlumbingImg.png';
 import agmLogo from '../assets/PrimaryBrands/agm.png';
 import groheLogo from '../assets/PrimaryBrands/grohe.png';
 import pedrollaLogo from '../assets/ToolsBrands/pedrolla.png';
+import { useLanguage } from "../context/LanguageContext";
 
 const IntroPlumbingItems = () => {
+  const { t } = useLanguage();
   const fadeInLeft = {
     hidden: { opacity: 0, x: -40 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeInOut" as const } }
@@ -27,20 +29,14 @@ const IntroPlumbingItems = () => {
         >
           <motion.div className="w-full text-center lg:text-left order-2 lg:order-1" variants={fadeInLeft}>
             <h2 className="text-3xl md:text-5xl font-poppins font-black text-[#6B5E18] text-[#002B36] leading-tight mb-6 lg:mb-8">
-              Plumbing Items
+              {t.categories['Plumbing Items']}
             </h2>
             <div className="text-gray-600 leading-relaxed text-base md:text-lg max-w-3xl mx-auto lg:mx-0">
               <p>
-                <strong className="text-[#002B36] font-bold">Al Emaar Alreeq Trading Est.</strong> stocks
-                a full range of plumbing items including UPVC pipes, fittings, valves,
-                water heaters, pumps, and sanitary ware. We carry products from trusted
-                brands that meet Saudi and international quality standards.
-                From small residential repairs to large MEP installations, we supply
-                plumbing materials directly to project sites across Saudi Arabia with
-                fast delivery and expert product support.
+                {t.introCommon.plumbingDesc}
               </p>
               <h3 className="text-xl md:text-3xl font-poppins font-black text-[#6B5E18] mt-6">
-                Explore Our Brands
+                {t.introCommon.exploreBrands}
               </h3>
               <div className="flex flex-row gap-6 mt-4 justify-center lg:justify-start mb-10 md:mb-0">
                 <Link to="/agm-products">

@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import gypsumBoardImg from '../assets/gypsumBoardImg.png';
 import madaLogo from '../assets/PrimaryBrands/mada.png';
 import khayaatLogo from '../assets/PrimaryBrands/khayaat.png';
+import { useLanguage } from "../context/LanguageContext";
 
 const IntroGypsumItems = () => {
+  const { t } = useLanguage();
   const fadeInLeft = {
     hidden: { opacity: 0, x: -40 },
     visible: { 
@@ -37,21 +39,15 @@ const IntroGypsumItems = () => {
             variants={fadeInLeft}
           >
             <h2 className="text-3xl md:text-5xl font-poppins font-black text-[#6B5E18] text-[#002B36] leading-tight mb-6 lg:mb-8">
-              Gypsum Boards
+              {t.categories['Gypsum Boards']}
             </h2>
 
             <div className="text-gray-600 leading-relaxed text-base md:text-lg max-w-3xl mx-auto lg:mx-0">
               <p>
-                <strong className="text-[#002B36] font-bold">Al Emaar Alreeq Trading Est.</strong> supplies
-                high-quality gypsum boards suitable for interior ceilings, partition walls,
-                and decorative applications. Our range includes standard, moisture-resistant,
-                and fire-rated boards from trusted manufacturers.
-                Whether you are working on a residential villa or a large commercial project,
-                we provide gypsum solutions that meet international standards. We offer
-                direct supply to project sites with competitive pricing across Saudi Arabia.
+                {t.introCommon.gypsumDesc}
               </p>
               <h3 className="text-xl md:text-3xl font-poppins font-black text-[#6B5E18] mt-6">
-                Explore Our Brands
+                {t.introCommon.exploreBrands}
               </h3>
               <div className="flex flex-row gap-6 mt-4 justify-center lg:justify-start mb-10 md:mb-0">
                 <Link to="/mada-products">

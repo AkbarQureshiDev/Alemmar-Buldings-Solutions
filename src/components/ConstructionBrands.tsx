@@ -15,6 +15,7 @@ import adhelant from '../assets/ConstructionBrands/adhelant.png';
 import dadco from '../assets/ConstructionBrands/dadco.png';
 import saaf from '../assets/ConstructionBrands/saaf.png';
 import sabit from '../assets/ConstructionBrands/sabit.svg';
+import leticrete from '../assets/ConstructionBrands/leticrete.svg';
 
 interface BrandLogo {
   image: string;
@@ -36,6 +37,7 @@ const ConstructionBrands: React.FC = () => {
     { image: dadco, name: 'Dadco', route: '/dadco-products' },
     { image: saaf, name: 'Saaf', route: '/saaf-products' },
     { image: sabit, name: 'Sabit', route: '/sabit-products' },
+    { image: leticrete, name: 'Laticrete', route: '/laticrete-products' },
   ];
   const duplicatedLogos: BrandLogo[] = [...logos, ...logos];
 

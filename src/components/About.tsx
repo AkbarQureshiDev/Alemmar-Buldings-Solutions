@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
 import ali from "../assets/ali.png";
 import nadeem from "../assets/nadeem.png";
 import AboutPage from '../assets/AboutPage.png'
 
 const About = () => {
+  const { t, language } = useLanguage();
   // Animation variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
@@ -62,28 +64,21 @@ const About = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              OUR INTRODUCTION
+              {t.aboutPage.ourIntroduction}
             </motion.div>
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-serif text-[#002B36] leading-tight mb-2">
-              Established Since
+              {t.aboutPage.establishedSince}
               <span className="relative px-4">
-                2023
+                {t.aboutPage.establishedYear}
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-red-600 -mb-2"></span>
               </span>
             </h2>
             <div className="mt-12 text-gray-600 leading-relaxed text-lg space-y-6">
               <p>
-                <strong>Al Emaar Alreeq Trading Est.</strong> is a diversified
-                trading company and a trusted supplier of premium building
-                materials and MEP products across Saudi Arabia. With more than seven 
-                years of industry and supply experience, we specialize in 
-                multi-materials supplying.
+                {t.aboutPage.introP1}
               </p>
               <p>
-                We provide a broad range of products including STP and swimming-pool 
-                chemicals, electrical items, fire and safety equipment, home appliances, 
-                electronics, and complete MEP solutions. We operate a full-service 
-                showroom and offer direct material supply to project sites across the region.
+                {t.aboutPage.introP2}
               </p>
             </div>
           </motion.div>
@@ -114,7 +109,7 @@ const About = () => {
           viewport={{ once: true, amount: 0.3 }}
           variants={fadeInUp}
         >
-          Meet Our Leadership Team
+          {t.aboutPage.leadershipTitle}
         </motion.h2>
 
         {/* --- SECTION 1: CEO --- */}
@@ -132,7 +127,7 @@ const About = () => {
               <div className="h-[400px] overflow-hidden rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.15)]">
                 <img
                   src={nadeem}
-                  alt="Nadeem Farooq Khan"
+                  alt={language === 'en' ? 'Nadeem Farooq Khan' : 'نديم فاروق خان'}
                   className="w-full h-full object-contain"
                 />
               </div>
@@ -144,19 +139,13 @@ const About = () => {
               variants={fadeInLeft}
             >
               <h3 className="text-3xl font-bold font-['Poppins'] text-[#1a1a1a] mb-4">
-                Nadeem Farooq Khan
+                {language === 'en' ? 'Nadeem Farooq Khan' : 'نديم فاروق خان'}
               </h3>
               <p className="text-sm text-red-600 font-semibold mb-4 uppercase tracking-wide">
-                Chief Executive Officer
+                {t.aboutPage.ceoTitle}
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
-                CEO of Al Emaar Alreeq Trading Est. Nadeem Farooq Khan is a
-                visionary leader with extensive experience in business development
-                and strategic management. With a strong background in commerce and
-                a keen understanding of market dynamics, Nadeem has played a
-                pivotal role in expanding the company's footprint across Saudi
-                Arabia, forging key partnerships, and driving growth in the
-                competitive construction materials sector.
+                {t.aboutPage.ceoBio}
               </p>
             </motion.div>
           </div>
@@ -177,7 +166,7 @@ const About = () => {
               <div className="h-[400px] overflow-hidden rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.15)]">
                 <img
                   src={ali}
-                  alt="Ali Ur Rahman"
+                  alt={language === 'en' ? 'Ali Ur Rahman' : 'علي الرحمن'}
                   className="w-full h-full object-contain"
                 />
               </div>
@@ -189,20 +178,13 @@ const About = () => {
               variants={fadeInRight}
             >
               <h3 className="text-3xl font-bold font-['Poppins'] text-[#1a1a1a] mb-4">
-                Ali Ur Rahman
+                {language === 'en' ? 'Ali Ur Rahman' : 'علي الرحمن'}
               </h3>
               <p className="text-sm text-red-600 font-semibold mb-4 uppercase tracking-wide">
-                Marketing Manager
+                {t.aboutPage.marketingTitle}
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Marketing Manager at Al Emaar Alreeq Trading Est., Ali Ur Rahman 
-                leads the company's marketing initiatives and brand development 
-                strategies. With expertise in market analysis and customer engagement, 
-                Ali focuses on building strong client relationships and expanding 
-                market presence across Saudi Arabia. His innovative approach to 
-                marketing and deep understanding of the construction materials sector 
-                has been key in positioning Al Emaar Alreeq as a trusted name in the 
-                industry, driving customer satisfaction and business growth.
+                {t.aboutPage.marketingBio}
               </p>
             </motion.div>
           </div>

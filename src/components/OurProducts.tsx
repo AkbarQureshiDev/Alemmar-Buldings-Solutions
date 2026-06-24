@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 import about from '../assets/about.png'
 import gypsum from '../assets/gypsum.png'
 import paints from '../assets/paints.png'
@@ -38,19 +39,43 @@ const trendingProducts = [
   { id: 8, name: 'Conmix OPC', subName: '50kg Bag', category: 'Cement/Materials', img: cement },
 ];
 
+const translatedProducts = {
+  en: {
+    1: { name: 'Comnix', subName: 'Waterproofing Membrane Roll', category: 'Water Proofing' },
+    2: { name: 'Jotun Jotashield', subName: 'Exterior Paint 20L', category: 'Paints' },
+    3: { name: 'Elephant Gypsum', subName: 'Board - 8ft x 4ft', category: 'Gypsum Board' },
+    4: { name: 'SDS Plus Rotary', subName: 'Hammer Drill', category: 'Tools & Equipment' },
+    5: { name: 'UPVC Pipe &', subName: 'Fittings Asst Pack', category: 'Plumbing' },
+    6: { name: '6mm Single Core', subName: 'Copper Cable Roll', category: 'Electrical' },
+    7: { name: 'Construction Materials', subName: 'General Supply', category: 'Construction' },
+    8: { name: 'Conmix OPC', subName: '50kg Bag', category: 'Cement/Materials' },
+  },
+  ar: {
+    1: { name: 'كومنيكس', subName: 'رول غشاء عزل مائي', category: 'عزل مائي' },
+    2: { name: 'جوتن جوتاشيلد', subName: 'دهان خارجي 20 لتر', category: 'دهانات' },
+    3: { name: 'جبس الفيل', subName: 'لوح - 8 قدم × 4 قدم', category: 'جبس بورد' },
+    4: { name: 'مطرقة روتاري إس دي إس بلس', subName: 'دريل حفر وهدم', category: 'معدات وعدد' },
+    5: { name: 'أنابيب UPVC و', subName: 'مجموعة وصلات متنوعة', category: 'سباكة' },
+    6: { name: 'سلك أحادي النواة 6 مم', subName: 'لفة كابلات نحاسية', category: 'كهرباء' },
+    7: { name: 'مواد البناء والإنشاءات', subName: 'توريد عام', category: 'بناء وإنشاءات' },
+    8: { name: 'كونميكس OPC', subName: 'كيس 50 كجم', category: 'إسمنت ومواد' },
+  }
+};
+
 const OurProducts: React.FC = () => {
   const navigate = useNavigate();
+  const { t, language } = useLanguage();
   
   const handleWhatsAppClick = (productName: string, subName: string, category: string) => {
     // WhatsApp number for Al-Emaar Building Solutions
     const phoneNumber = "966544837829"; 
     
     // Create a descriptive message
-    const message = `Hello Al-Emaar! I am interested in purchasing the following product:\n\n` +
-                    `*Product:* ${productName}\n` +
-                    `*Details:* ${subName}\n` +
-                    `*Category:* ${category}\n\n` +
-                    `Could you please provide more information and pricing?`;
+    const rawMsg = t.ourProducts.whatsappMsg;
+    const message = rawMsg
+      .replace('{name}', productName)
+      .replace('{subName}', subName)
+      .replace('{category}', category);
 
     // Encode the message for a URL
     const encodedMessage = encodeURIComponent(message);
@@ -115,7 +140,7 @@ const OurProducts: React.FC = () => {
           className="text-3xl md:text-4xl font-bold mb-6 text-[#423129] text-center md:text-left"
           variants={itemVariants}
         >
-          All Categories
+          {t.ourProducts.categoriesTitle}
         </motion.h2>
         <motion.div 
           className="grid md:grid-cols-5 gap-4"
@@ -133,9 +158,9 @@ const OurProducts: React.FC = () => {
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.3 }}
               >
-                <img src={cat.img} alt={cat.name} className="max-h-full object-contain" />
+                <img src={cat.img} alt={t.categories[cat.name] || cat.name} className="max-h-full object-contain" />
               </motion.div>
-              <span className="text-md font-bold text-center px-2">{cat.name}</span>
+              <span className="text-md font-bold text-center px-2">{t.categories[cat.name] || cat.name}</span>
             </motion.div>
           ))}
         </motion.div>
@@ -154,50 +179,53 @@ const OurProducts: React.FC = () => {
             className="text-3xl md:text-4xl font-bold mb-6 text-[#423129] text-center md:text-left"
             variants={itemVariants}
           >
-            Trending Products
+            {t.ourProducts.trendingTitle}
           </motion.h2>
           <motion.div 
             className="grid grid-cols-2 md:grid-cols-4 gap-4"
             variants={containerVariants}
           >
-            {trendingProducts.map((product) => (
-              <motion.div 
-                key={product.id} 
-                className="bg-white rounded-xl border border-gray-200 overflow-hidden relative flex flex-col group shadow-sm"
-                variants={itemVariants}
-                whileHover={cardHoverVariants.hover}
-              >
-                <div className="absolute top-0 left-0 bg-[#233F90] text-white text-[10px] px-3 py-1 rounded-br-lg z-10 font-medium">
-                  Popular
-                </div>
-                
+            {trendingProducts.map((product) => {
+              const tProduct = translatedProducts[language][product.id as keyof typeof translatedProducts['en']];
+              return (
                 <motion.div 
-                  className="p-4 h-36 flex items-center justify-center bg-white"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
+                  key={product.id} 
+                  className="bg-white rounded-xl border border-gray-200 overflow-hidden relative flex flex-col group shadow-sm"
+                  variants={itemVariants}
+                  whileHover={cardHoverVariants.hover}
                 >
-                  <img src={product.img} alt={product.name} className="max-h-full object-contain group-hover:scale-105 transition-transform" />
-                </motion.div>
-                
-                <div className="p-4 flex-grow flex flex-col bg-white">
-                  <h3 className="text-sm font-semibold text-[#423129]">
-                    {product.name}
-                  </h3>
-                  <p className="text-[12px] text-gray-500 mb-2 h-8">{product.subName}</p>
+                  <div className="absolute top-0 left-0 bg-[#233F90] text-white text-[10px] px-3 py-1 rounded-br-lg z-10 font-medium">
+                    {t.ourProducts.popular}
+                  </div>
                   
-                  {/* Updated Button with WhatsApp functionality */}
-                  <motion.button 
-                    onClick={() => handleWhatsAppClick(product.name, product.subName, product.category)}
-                    className="w-full bg-[#6B5E18] text-white py-2 rounded-lg text-sm font-bold transition-colors mt-auto shadow-sm"
-                    whileHover={{ scale: 1.05, backgroundColor: "#5a4e14" }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
+                  <motion.div 
+                    className="p-4 h-36 flex items-center justify-center bg-white"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    Add to Cart
-                  </motion.button>
-                </div>
-              </motion.div>
-            ))}
+                    <img src={product.img} alt={tProduct?.name || product.name} className="max-h-full object-contain group-hover:scale-105 transition-transform" />
+                  </motion.div>
+                  
+                  <div className="p-4 flex-grow flex flex-col bg-white">
+                    <h3 className="text-sm font-semibold text-[#423129]">
+                      {tProduct?.name || product.name}
+                    </h3>
+                    <p className="text-[12px] text-gray-500 mb-2 h-8">{tProduct?.subName || product.subName}</p>
+                    
+                    {/* Updated Button with WhatsApp functionality */}
+                    <motion.button 
+                      onClick={() => handleWhatsAppClick(tProduct?.name || product.name, tProduct?.subName || product.subName, tProduct?.category || product.category)}
+                      className="w-full bg-[#6B5E18] text-white py-2 rounded-lg text-sm font-bold transition-colors mt-auto shadow-sm"
+                      whileHover={{ scale: 1.05, backgroundColor: "#5a4e14" }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {t.ourProducts.addToCart}
+                    </motion.button>
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </motion.div>
 
@@ -220,14 +248,14 @@ const OurProducts: React.FC = () => {
             >
               <img 
                 src={about} 
-                alt="About Al-Emaar Construction" 
+                alt={t.ourProducts.aboutTitle} 
                 className="w-full h-full object-cover"
               />
             </motion.div>
             <div className="p-5 text-center">
-              <h2 className="text-2xl md:text-3xl font-bold mb-3 text-[#423129]">About Al-Emaar</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-3 text-[#423129]">{t.ourProducts.aboutTitle}</h2>
               <p className="text-gray-600 text-[13px] mb-6 flex items-center justify-center gap-2">
-                AL-EMAAR Building Solutions is a leading supplier of top-quality building materials. We provide a comprehensive range products to meet all your construction needs.
+                {t.ourProducts.aboutText}
                 <motion.button
                   onClick={() => navigate('/about')}
                   className="inline-flex items-center justify-center w-8 h-8 bg-[#6B5E18] text-white rounded-full hover:bg-[#5a4e14] transition-colors flex-shrink-0"
