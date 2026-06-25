@@ -6,6 +6,7 @@ import latascreed100 from '../assets/Brands/Leticrete/LATASCREED 100.png';
 import mortar226 from '../assets/Brands/Leticrete/226_Thick_Bed_Mortar.png';
 import concentrate3642 from '../assets/Brands/Leticrete/3642 Latex Concentrate.png';
 import repairMortar from '../assets/Brands/Leticrete/LATICRETE REPAIR MORTAR.png';
+import latexAdditive4237 from '../assets/Brands/Leticrete/4237 Latex Additive.png';
 import blowholeFiller from '../assets/Brands/Leticrete/Blowhole-Filler.png';
 import hydroBan from '../assets/Brands/Leticrete/HYDRO BAN.jpg';
 import membrane9235 from '../assets/Brands/Leticrete/9235 Waterproofing Membrane.png';
@@ -17,8 +18,15 @@ import powder211 from '../assets/Brands/Leticrete/211 CRETE FILLER POWDER.png';
 import triMax125 from '../assets/Brands/Leticrete/125 TRI MAX.png';
 import permacolorGrout from '../assets/Brands/Leticrete/PERMACOLOR Grout.jpg';
 import permacolorGroutFs from '../assets/Brands/Leticrete/PERMACOLOR Grout FS.png';
+import sandedGrout1500 from '../assets/Brands/Leticrete/1500 Sanded Grout.jpg';
+import unsandedGrout1600 from '../assets/Brands/Leticrete/1600 Unsanded Grout.jpg';
 import admix1776 from '../assets/Brands/Leticrete/1776 Grout Admix Plus.png';
 import stellar from '../assets/Brands/Leticrete/Stellar.png';
+import latasilSiliconeSealant from '../assets/Brands/Leticrete/LATASIL Silicone Sealant.png';
+import latasilPrimer9118 from '../assets/Brands/Leticrete/LATASIL 9118 Primer.png';
+import latafinishPutty from '../assets/Brands/Leticrete/LATAFINISH Wall Putty Fine Finish.png';
+import stonetechBulletproof from '../assets/Brands/Leticrete/STONETECH BulletProof Sealer.png';
+import stonetechImpregnatorPro from '../assets/Brands/Leticrete/STONETECH Impregnator Pro Sealer.jpg';
 
 const LaticreteProducts = [
   // --- SURFACE PREPARATION & UNDERLAYMENTS ---
@@ -74,9 +82,9 @@ const LaticreteProducts = [
   },
   {
     id: 9,
-    name: "LATICRETE® NON-SHRINK GROUT",
-    description: "A non-shrink cementitious free-flowing general purpose grout engineered for high-gap thickness installations to eliminate shrinkage between base plates.",
-    productImg: "https://laticrete.com/-/media/images/products/non-shrink-grout.jpg"
+    name: "4237 Latex Additive",
+    description: "4237 Latex Additive is a specially designed latex additive for use with 211 Powder to make high strength latex thin-set bed up to 3 mm and medium bed up to 15 mm mortars.",
+    productImg: latexAdditive4237
   },
   {
     id: 10,
@@ -126,8 +134,8 @@ const LaticreteProducts = [
   },
   {
     id: 17,
-    name: "211 Powder & 4237 Latex Additive",
-    description: "A high-performance, flexible latex-fortified thin-set bonding master built by blending premium 211 powder with 4237 high-density latex liquid gauges.",
+    name: "211 Powder",
+    description: "211 Powder is a factory prepared blend of carefully selected raw materials, Portland cement and graded aggregates.",
     productImg: powder211
   },
   {
@@ -154,13 +162,13 @@ const LaticreteProducts = [
     id: 21,
     name: "1500 Sanded Grout",
     description: "Premium, factory-blended sanded tile joint filler composed of graded sand, portland cement, and color-fast pigments designed for installations with wide joint margins.",
-    productImg: "https://laticrete.com/-/media/images/products/1500-sanded-grout.jpg"
+    productImg: sandedGrout1500
   },
   {
     id: 22,
     name: "1600 Unsanded Grout",
     description: "Ultra-smooth unsanded cementitious grout formula ideal for narrow joint parameters and highly polished ceramic or sensitive marble surfaces.",
-    productImg: "https://laticrete.com/-/media/images/products/1600-unsanded-grout.jpg"
+    productImg: unsandedGrout1600
   },
   {
     id: 23,
@@ -178,13 +186,13 @@ const LaticreteProducts = [
     id: 25,
     name: "LATASIL™ Silicone Sealant",
     description: "High-performance, 100% silicone sealant designed specifically for use in moving joints, coves, corners, and expansion areas in tile and stone installations.",
-    productImg: "https://laticrete.com/-/media/images/products/latasil.jpg"
+    productImg: latasilSiliconeSealant
   },
   {
     id: 26,
     name: "LATASIL™ 9118 Primer",
     description: "A specialty clear structural primer formulated to increase dynamic surface adhesion before running LATASIL sealant beads through wet or underwater projects.",
-    productImg: "https://laticrete.com/-/media/images/products/latasil-9118-primer.jpg"
+    productImg: latasilPrimer9118
   },
 
   // --- WALL PUTTY & STONE PROTECTORS ---
@@ -192,19 +200,19 @@ const LaticreteProducts = [
     id: 27,
     name: "LATAFINISH Wall Putty",
     description: "Mineral-based premium wall putty compound available in coarse and fine grain matrices to establish exceptionally flat, durable sub-finishes before painting.",
-    productImg: "https://laticrete.com/-/media/images/products/latafinish-putty.jpg"
+    productImg: latafinishPutty
   },
   {
     id: 28,
     name: "STONETECH® BulletProof® Sealer",
     description: "The ultimate micro-engineered architectural protective coating preventing water and oil stains from ruining natural porous stone surfaces.",
-    productImg: "https://laticrete.com/-/media/images/products/stonetech-bulletproof.jpg"
+    productImg: stonetechBulletproof
   },
   {
     id: 29,
     name: "STONETECH® Impregnator Pro® Sealer",
     description: "Professional grade deep-penetrating solvent sealer designed to block moisture ingress and lock out contaminants on stone finishes without modifying surface gloss.",
-    productImg: "https://laticrete.com/-/media/images/products/stonetech-impregnator-pro.jpg"
+    productImg: stonetechImpregnatorPro
   }
 ];
 
